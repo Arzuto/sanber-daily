@@ -88,7 +88,7 @@ export default function Login() {
         <Button onClick={HandleSubmit} colorScheme="blue" size="lg">
           Login
         </Button>
-        <Link href="/register" color="blue.500" textAlign="center">
+        <Link href="/register" className="text-blue-500" textAlign="center">
           Don&apos;t have an account? Click here
         </Link>
       </Stack>
