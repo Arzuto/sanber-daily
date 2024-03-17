@@ -54,21 +54,13 @@ export default function Header() {
             Profile
           </Link>
         </li>
-        <li style={{ marginRight: "1rem" }}>
-          <Link href="/users" className={isActive("/users")}>
-            User
-          </Link>
-        </li>
+
         <li style={{ marginRight: "1rem" }}>
           <Link href="/notes" className={isActive("/notes")}>
             Notes
           </Link>
         </li>
-        <li style={{ marginRight: "1rem" }}>
-          <Link href="/posts" className={isActive("/posts")}>
-            Posts
-          </Link>
-        </li>
+
         <li style={{ marginLeft: "auto" }}>
           <Menu>
             <MenuButton as={Button} colorScheme="blue" rightIcon={<ChevronDownIcon />}>
