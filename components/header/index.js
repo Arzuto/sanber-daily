@@ -39,31 +39,43 @@ export default function Header() {
     }
   };
 
+  const isActive = (href) => (router.pathname === href ? "text-2xl font-bold underline text-blue-500" : "");
+
   return (
-    <div className={styles.header}>
-      <ul>
-        <li>
-          <Link href="/">Home</Link>
+    <div style={{ display: "flex", justifyContent: "center" }}>
+      <ul style={{ listStyleType: "none", display: "flex", alignItems: "center" }}>
+        <li style={{ marginRight: "1rem" }}>
+          <Link href="/" className={isActive("/")}>
+            Home
+          </Link>
         </li>
-        <li>
-          <Link href="/profile">Profile</Link>
+        <li style={{ marginRight: "1rem" }}>
+          <Link href="/profile" className={isActive("/profile")}>
+            Profile
+          </Link>
         </li>
-        <li>
-          <Link href="/users">User</Link>
+        <li style={{ marginRight: "1rem" }}>
+          <Link href="/users" className={isActive("/users")}>
+            User
+          </Link>
         </li>
-        <li>
-          <Link href="/notes">Notes</Link>
+        <li style={{ marginRight: "1rem" }}>
+          <Link href="/notes" className={isActive("/notes")}>
+            Notes
+          </Link>
         </li>
-        <li>
-          <Link href="/posts">Posts</Link>
+        <li style={{ marginRight: "1rem" }}>
+          <Link href="/posts" className={isActive("/posts")}>
+            Posts
+          </Link>
         </li>
-        <li>
+        <li style={{ marginLeft: "auto" }}>
           <Menu>
-            <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+            <MenuButton as={Button} colorScheme="blue" rightIcon={<ChevronDownIcon />}>
               {userData?.name}
             </MenuButton>
             <MenuList>
-              <MenuItem onClick={() => HandleLogout()}>Log Out</MenuItem>
+              <MenuItem onClick={HandleLogout}>Log Out</MenuItem>
             </MenuList>
           </Menu>
         </li>

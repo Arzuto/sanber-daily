@@ -2,53 +2,44 @@ import {
   Flex,
   Stack,
   Heading,
-  FormControl,
-  Input,
+  FormControl, Input,
   Button,
-  useToast,
+  Link,
+  IconButton,
   InputGroup,
   InputRightElement,
-  IconButton
+  useToast
 } from "@chakra-ui/react";
-import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useState } from "react";
-import Cookies from "js-cookie";
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
-import Link from "next/link";
-import { useMutation } from "../hooks/useMutation";
+import { useMutation } from "@/hooks/useMutation";
 
-export default function Login() {
-  const router = useRouter();
+export default function Register() {
   const toast = useToast();
+  const router = useRouter();
   const { mutate } = useMutation();
-  const [payload, setPayload] = useState({
-    email: "",
-    password: "",
-  });
+  const [payload, setPayload] = useState({ name: "", email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
 
   const HandleSubmit = async () => {
-    const response = await mutate({ url: "https://paace-f178cafcae7b.nevacloud.io/api/login", payload });
+    const response = await mutate({ url: "https://paace-f178cafcae7b.nevacloud.io/api/register", payload });
     // console.log("response => ", response)
     if (!response?.success) {
       toast({
-        title: "Login Gagal",
-        description: "email dan password tidak sesuai",
+        title: "Register Gagal",
+        description: "akun dengan email ini sudah terdaftar",
         status: "error",
         duration: 2000,
         isClosable: true,
         position: "top"
       });
     } else {
-      Cookies.set("user_token", response?.data?.token, {
-        expires: new Date(response?.data?.expires_at),
-        path: "/"
-      });
-      router.push("/");
+      router.push("/login");
     }
   };
 
-  const HandleTogglePassword = () => {
+  const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
 
@@ -56,8 +47,16 @@ export default function Login() {
     <Flex alignItems="center" justifyContent="center" h="100vh">
       <Stack spacing={8} p={8} rounded="lg" bg="gray.50" boxShadow="lg">
         <Heading as="h4" size="lg" textAlign="center">
-          Login
+          Register
         </Heading>
+        <FormControl>
+          <Input
+            value={payload.name}
+            onChange={(e) => setPayload({ ...payload, name: e.target.value })}
+            placeholder="Name"
+            variant="flushed"
+          />
+        </FormControl>
         <FormControl>
           <Input
             value={payload.email}
@@ -79,17 +78,17 @@ export default function Login() {
               <IconButton
                 h="1.75rem"
                 size="sm"
-                onClick={HandleTogglePassword}
+                onClick={handleTogglePassword}
                 icon={showPassword ? <ViewOffIcon /> : <ViewIcon />}
               />
             </InputRightElement>
           </InputGroup>
         </FormControl>
         <Button onClick={HandleSubmit} colorScheme="blue" size="lg">
-          Login
+          Register
         </Button>
-        <Link href="/register" color="blue.500" textAlign="center">
-          Don&apos;t have an account? Click here
+        <Link href="/login" color="blue.500" textAlign="center">
+          Already have an account? Login here
         </Link>
       </Stack>
     </Flex>
